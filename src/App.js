@@ -28,8 +28,12 @@ export default function App() {
 
   const onFormSubmit = e => {
     e.preventDefault();
-    setTeam([...team, {...form, id: uuid()}]);
-    setForm(initialForm);
+    if (form.name && form.email && form.role) {
+      setTeam([...team, {...form, id: uuid()}]);
+      setForm(initialForm);
+    } else {
+      alert(`Please fill empty fields.`)
+    }
   }
   
   return (
