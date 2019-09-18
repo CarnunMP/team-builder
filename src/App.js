@@ -19,17 +19,34 @@ export default function App() {
   const [form, setForm] = useState(initialForm);
   return (
     <div className="App">
+      <Form/>
       <FriendsList team={team} />
     </div>
   );
 }
 
+
+
+function Form(props) {
+  return (
+    <form className="form">
+      <label htmlFor="nameField">Name</label>
+      <input id="nameField"/>
+
+      <label htmlFor="ageField">Age</label>
+      <input id="ageField"/>
+    </form>
+  )
+}
+
 function FriendsList(props) {
   return (
-    props.team.map(member => 
-      <h4 key={member.id}>
-        {member.name} is {member.age} years old.
-      </h4>
-    )
+    <div className="friendsList">
+      {props.team.map(member => 
+        <h4 key={member.id}>
+          {member.name} is {member.age} years old.
+        </h4>
+      )}
+    </div>
   )
 }

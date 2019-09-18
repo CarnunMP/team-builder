@@ -35,7 +35,7 @@ Follow these steps for completing your project.
 
 ## Minimum Viable Product
 
-- [ ] Render a list of team members from state
+- [x] Render a list of team members from state
 - [ ] Build a form to add a new member to the list of members
 
 ### STEP 1 - Setup your state
