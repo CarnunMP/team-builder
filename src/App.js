@@ -3,10 +3,10 @@ import './App.css';
 import uuid from "uuid";
 
 const initialTeam = [
-  {name: "Carnun", age: 22, id: uuid()},
-  {name: "Tiy", age: 20, id: uuid()},
-  {name: "Khem", age: 15, id: uuid()},
-  {name: "Rhea", age: 11, id: uuid()},
+  {name: "Carnun", email: "carnunmp.lambdaschool@gmail.com", role: "Senior Developer Extraordinaire", id: uuid()},
+  {name: "Tiy", email: "tiy@email.co.uk", role: "Lead Product Designer", id: uuid()},
+  {name: "Khem", email: "khem@mailness.com", role: "UX Developer", id: uuid()},
+  {name: "Rhea", email: "rhea@rhea.com", role: "Head of Memeketing", id: uuid()},
 ];
 
 const initialForm = {
@@ -25,8 +25,6 @@ export default function App() {
   );
 }
 
-
-
 function Form(props) {
   return (
     <form className="form">
@@ -35,6 +33,13 @@ function Form(props) {
 
       <label htmlFor="ageField">Age</label>
       <input id="ageField"/>
+
+      <button
+        disabled={true}
+        // onClick={}
+      >
+        Submit
+      </button>
     </form>
   )
 }
@@ -44,7 +49,8 @@ function FriendsList(props) {
     <div className="friendsList">
       {props.team.map(member => 
         <h4 key={member.id}>
-          {member.name} is {member.age} years old.
+          {member.role}: {member.name}. <br />
+          Email: {member.email}.
         </h4>
       )}
     </div>
