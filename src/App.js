@@ -18,6 +18,7 @@ const initialForm = {
 export default function App() {
   const [team, setTeam] = useState(initialTeam);
   const [form, setForm] = useState(initialForm);
+  const [memberToEdit, setMemberToEdit] = useState(null);
 
   const onChange = e => {
     const inputValue = e.target.value;
@@ -35,6 +36,11 @@ export default function App() {
       alert(`Please fill empty fields.`)
     }
   }
+
+  const onEditPress = (member) => {
+    console.log(member);
+    setMemberToEdit(member);
+  }
   
   return (
     <div className="App">
@@ -42,14 +48,15 @@ export default function App() {
         form={form}
         onChange={onChange}
         onFormSubmit={onFormSubmit}
+        onEditPress={onEditPress}
       />
-      <FriendsList team={team} />
+      <FriendsList team={team} onEditPress={onEditPress} />
     </div>
   );
 }
 
 function Form(props) {
-  const {form, onChange, onFormSubmit} = props;
+  const {form, onChange, onFormSubmit, memberToEdit} = props;
   const {name, email, role} = form;
 
   return (
@@ -74,13 +81,17 @@ function Form(props) {
 }
 
 function FriendsList(props) {
+  const {team, onEditPress} = props;
   return (
     <div className="friendsList">
-      {props.team.map(member => 
-        <h4 key={member.id}>
-          {member.role}: {member.name}. <br />
-          Email: {member.email}.
-        </h4>
+      {team.map(member => 
+        <div key={member.id}>
+          <h4>
+            {member.role}: {member.name}. <br />
+            Email: {member.email}.
+          </h4>
+          <button onClick={() => onEditPress(member)}>Edit</button>
+        </div>
       )}
     </div>
   )
