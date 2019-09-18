@@ -39,8 +39,20 @@ export default function App() {
   }
 
   const onEditPress = (member) => {
-    console.log(member);
     setMemberToEdit(member);
+  }
+
+  const editMember = (memberToEdit) => e => {
+    e.preventDefault();
+    const editedMember = team.find(member => member.id === memberToEdit.id);
+    const rest = team.filter(member => member != editedMember);
+    
+    if (form.name && form.email && form.role) {
+      setTeam([memberToEdit, ...rest]);
+      setForm(initialForm);
+    } else {
+      alert(`Please fill empty fields.`)
+    }
   }
   
   return (
@@ -50,6 +62,8 @@ export default function App() {
         onChange={onChange}
         onFormSubmit={onFormSubmit}
         memberToEdit={memberToEdit}
+        setMemberToEdit={setMemberToEdit}
+        editMember={editMember}
         setForm={setForm}
       />
       <FriendsList team={team} onEditPress={onEditPress} />
@@ -58,12 +72,13 @@ export default function App() {
 }
 
 function Form(props) {
-  const {form, onChange, onFormSubmit, memberToEdit, setForm} = props;
+  const {form, onChange, onFormSubmit, memberToEdit, setMemberToEdit, editMember, setForm} = props;
   const {name, email, role} = form;
 
   useEffect(() => {
     if (memberToEdit != null) {
-      setForm({name: memberToEdit.name, email: memberToEdit.email, role: memberToEdit.role})
+      setForm({name: memberToEdit.name, email: memberToEdit.email, role: memberToEdit.role});
+      // setMemberToEdit(null);
     }
   }, [memberToEdit]);
 
@@ -80,7 +95,11 @@ function Form(props) {
 
       <button
         disabled={false}
-        onClick={onFormSubmit}
+        onClick={
+          memberToEdit === null 
+            ? onFormSubmit
+            : editMember(memberToEdit)
+        }
       >
         Submit
       </button>
