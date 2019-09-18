@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import uuid from "uuid";
+import { ninvoke } from 'q';
 
 const initialTeam = [
   {name: "Carnun", email: "carnunmp.lambdaschool@gmail.com", role: "Senior Developer Extraordinaire", id: uuid()},
@@ -48,7 +49,8 @@ export default function App() {
         form={form}
         onChange={onChange}
         onFormSubmit={onFormSubmit}
-        onEditPress={onEditPress}
+        memberToEdit={memberToEdit}
+        setForm={setForm}
       />
       <FriendsList team={team} onEditPress={onEditPress} />
     </div>
@@ -56,8 +58,14 @@ export default function App() {
 }
 
 function Form(props) {
-  const {form, onChange, onFormSubmit, memberToEdit} = props;
+  const {form, onChange, onFormSubmit, memberToEdit, setForm} = props;
   const {name, email, role} = form;
+
+  useEffect(() => {
+    if (memberToEdit != null) {
+      setForm({name: memberToEdit.name, email: memberToEdit.email, role: memberToEdit.role})
+    }
+  }, [memberToEdit]);
 
   return (
     <form className="form">
