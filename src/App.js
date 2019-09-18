@@ -11,34 +11,49 @@ const initialTeam = [
 
 const initialForm = {
   name: "",
-  age: "",
+  email: "",
+  role: "",
 };
 
 export default function App() {
   const [team, setTeam] = useState(initialTeam);
   const [form, setForm] = useState(initialForm);
+
+  const onChange = e => {
+    const inputValue = e.target.value;
+    const formSection = e.target.id;
+    
+    setForm({...form, [formSection]: inputValue})
+  }
+  
   return (
     <div className="App">
-      <Form/>
+      <Form
+        form={form}
+        onChange={onChange}
+      />
       <FriendsList team={team} />
     </div>
   );
 }
 
 function Form(props) {
+  const {form, onChange} = props;
+  const {name, email, role} = form;
+
   return (
     <form className="form">
-      <label htmlFor="nameField">Name</label>
-      <input id="nameField"/>
+      <label htmlFor="name">Name</label>
+      <input id="name" onChange={onChange} value={name} />
 
-      <label htmlFor="emailField">Email</label>
-      <input id="emailField"/>
+      <label htmlFor="email">Email</label>
+      <input id="email" onChange={onChange} value={email} />
 
-      <label htmlFor="roleField">Role</label>
-      <input id="roleField"/>
+      <label htmlFor="role">Role</label>
+      <input id="role" onChange={onChange} value={role}/>
 
       <button
-        disabled={true}
+        disabled={false}
         // onClick={}
       >
         Submit
