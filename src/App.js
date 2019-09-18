@@ -25,12 +25,19 @@ export default function App() {
     
     setForm({...form, [formSection]: inputValue})
   }
+
+  const onFormSubmit = e => {
+    e.preventDefault();
+    setTeam([...team, {...form, id: uuid()}]);
+    setForm(initialForm);
+  }
   
   return (
     <div className="App">
       <Form
         form={form}
         onChange={onChange}
+        onFormSubmit={onFormSubmit}
       />
       <FriendsList team={team} />
     </div>
@@ -38,7 +45,7 @@ export default function App() {
 }
 
 function Form(props) {
-  const {form, onChange} = props;
+  const {form, onChange, onFormSubmit} = props;
   const {name, email, role} = form;
 
   return (
@@ -54,7 +61,7 @@ function Form(props) {
 
       <button
         disabled={false}
-        // onClick={}
+        onClick={onFormSubmit}
       >
         Submit
       </button>
