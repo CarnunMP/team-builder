@@ -31,8 +31,11 @@ function Form(props) {
       <label htmlFor="nameField">Name</label>
       <input id="nameField"/>
 
-      <label htmlFor="ageField">Age</label>
-      <input id="ageField"/>
+      <label htmlFor="emailField">Email</label>
+      <input id="emailField"/>
+
+      <label htmlFor="roleField">Role</label>
+      <input id="roleField"/>
 
       <button
         disabled={true}
